@@ -1,0 +1,55 @@
+#work {
+	padding: 50px;
+	@include outer-container;
+	@include media($tablet) {
+		padding: 25px;
+	}
+
+	.work-item {
+		@include span-columns(3);
+		@include omega(4n);
+		@include media($tablet) {
+			@include span-columns(3);
+			@include omega(2n);
+		}
+		@include media($mobile) {
+			@include span-columns(6);
+			@include omega();
+		}
+		margin-bottom: 50px;
+		text-align: center;
+
+		.work-image {
+			position: relative;
+			width: 100%;
+			height: auto;
+
+			img {
+				width: 100%;
+				height: auto;
+				border: 7px solid #e3e3e3;
+			}
+		}
+
+		a {
+			text-align: center;
+		}
+
+		h4 {
+			font-weight: 500;
+			font-size: 1.2em;
+			text-align: center;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+
+		p {
+			text-align: center;
+			font-weight: 300;
+			font-size: 1em;
+			line-height: 1.3em;
+		}
+
+	}
+
+}

@@ -1,0 +1,22 @@
+#about {
+	@include outer-container;
+	text-align: center;
+	padding: 50px;
+	@include media($tablet) {
+		padding: 25px;
+	}
+
+	p {
+		color: white;
+		font-size: 1.4em;
+		font-weight: 300;
+		margin-top: 40px;
+		line-height: 1.7em;
+
+		@include media($mobile) {
+			font-size: 1.2em;
+			line-height: 1.5em;
+			margin-top: 20px;
+		}
+	}
+}

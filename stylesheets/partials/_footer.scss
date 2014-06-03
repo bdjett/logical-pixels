@@ -1,0 +1,180 @@
+#footer {
+	@include outer-container;
+	padding: 50px;
+	@include media($tablet) {
+		padding: 25px;
+	}
+
+	#contact-form {
+		@include span-columns(7);
+		@include media($tablet) {
+			@include span-columns(6);
+			margin-bottom: 30px;
+		}
+
+		h3 {
+			color: white;
+			font-weight: 300;
+			font-size: 1.7em;
+		}
+
+		#footer-form {
+			margin-top: 30px;
+
+			.error-message {
+				border: 1px solid #c63232;
+				padding: 15px;
+				background: #df6767;
+				color: white;
+				width: 520px;
+				display: none;
+				max-width: 100%;
+				margin-bottom: 20px;
+				font-weight: 300;
+				font-size: 1em;
+				line-height: 1.3em;
+
+				@include media($tablet) {
+					width: 100%;
+				}
+			}
+
+			.success-message {
+				border: 1px solid #14ba56;
+				padding: 15px;
+				background: #4fd786;
+				color: white;
+				width: 520px;
+				display: block;
+				max-width: 100%;
+				margin-bottom: 20px;
+				font-weight: 300;
+				font-size: 1em;
+				line-height: 1.3em;
+
+				@include media($tablet) {
+					width: 100%;
+				}
+			}
+
+			input[type='text'] {
+				display: inline-block;
+				padding: 0;
+				margin: 0;
+				border: 0;
+				outline: 0;
+				float: left;
+				background: #424141;
+				color: white;
+				width: 250px;
+				padding: 10px;
+				font-size: 1.3em;
+				font-weight: 300;
+				margin-right: 20px;
+				margin-bottom: 20px;
+				border-radius: 0;
+
+				@include media($tablet) {
+					width: 100%;
+				}
+
+			}
+
+			textarea {
+				display: block;
+				padding: 0;
+				margin: 0;
+				border: 0;
+				outline: 0;
+				clear: both;
+				background: #424141;
+				color: white;
+				width: 520px;
+				max-width: 100%;
+				padding: 10px;
+				font-size: 1.3em;
+				font-weight: 300;
+				margin-top: 20px;
+				height: 150px;
+				border-radius: 0;
+
+				@include media($tablet) {
+					width: 100%;
+				}
+			}
+
+			.error {
+				border: 2px solid #c63232 !important;
+				padding: 8px;
+			}
+
+			button[type='submit'] {
+				display: block;
+				padding: 10px;
+				background: #146cba;
+				border: 0;
+				outline: 0;
+				margin: 0;
+				font-size: 1.3em;
+				font-weight: 300;
+				color: white;
+				margin-top: 20px;
+				padding: 10px;
+				width: auto;
+
+				@include media($tablet) {
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	#connect-section {
+		@include span-columns(5);
+		@include omega();
+		@include media($tablet) {
+			@include span-columns(6);
+			@include omega();
+		}
+
+		h3 {
+			color: white;
+			font-weight: 300;
+			font-size: 1.7em;
+		}
+
+		p {
+			font-size: 1em;
+			color: white;
+			font-weight: 300;
+			margin-top: 30px;
+			line-height: 1.4em;
+			margin-bottom: 30px;
+		}
+
+		.social-icon {
+			padding: 15px;
+			display: inline-block;
+			width: 50px;
+			text-align: center;
+			margin-right: 10px;
+		}
+
+		#social-twitter {
+			background: rgba(70, 154, 233, 1);
+		}
+
+		#social-facebook {
+			background: rgba(51, 73, 139, 1);
+		}
+
+		#social-linkedin {
+			background: rgba(24, 104, 162, 1);
+		}
+
+		#social-github {
+			background: white;
+			color: rgba(36, 36, 36, 1);
+		}
+	}
+}

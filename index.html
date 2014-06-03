@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Logical Pixels - Development and Design</title>
+		<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/main.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<script>
+			$(function() {
+				$('button').hover(function() {
+					$(this).animate({backgroundColor: '#479be6'}, 'fast');
+				}, function() {
+					$(this).animate({backgroundColor: '#146cba'}, 'fast');
+				});
+				$('#footer-form').children('button').click(function() {
+					// button
+					$(this).html("<i class='fa fa-spinner fa-spin'></i>&nbsp;&nbsp;Sending...");
+					$(this).attr("disabled", "disabled");
+					// Get user input field values
+					var user_name = $('#input-name').val();
+					var user_email = $('#input-email').val();
+					var user_message = $('#input-message').val();
+
+					console.log(user_name);
+					console.log(user_email);
+					console.log(user_message);
+
+					// Validation
+					var proceed = true;
+					if (user_name == "") {
+						$('#input-name').addClass('error');
+						proceed = false;
+					}
+					if (user_email == "") {
+						$('#input-email').addClass('error');
+						proceed = false;
+					}
+					if (user_message == "") {
+						$('#input-message').addClass('error');
+						proceed = false;
+					}
+					console.log(proceed);
+
+					if (proceed) {
+						// everything validated
+						console.log("Validated");
+						post_data = {'name':user_name, 'email':user_email, 'message':user_message};
+
+						$.post('contact_me.php', post_data, function(response) {
+							if (response.type == 'error') {
+								$('#footer-form').children('.error-message').text(response.text).fadeIn();
+								$('#footer-form').children('button').html("<i class='fa fa-envelope'></i>&nbsp;&nbsp;Send");
+								$('#footer-form').children('button').removeAttr("disabled");
+							} else {
+								output = '<p class="success-message">'+response.text+'</p>';
+								$("#footer-form").hide().html(output).slideDown();
+							}
+						}, 'json');
+					} else {
+						// error
+						$('#footer-form').children('.error-message').fadeIn();
+						$(this).html("<i class='fa fa-envelope'></i>&nbsp;&nbsp;Send");
+						$(this).removeAttr("disabled");
+					}
+				});
+			});
+		</script>
+		<script>
+			  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			  ga('create', 'UA-39545544-2', 'logicalpixels.com');
+			  ga('send', 'pageview');
+		</script>
+	</head>
+	<body>
+		<div class="wrapper" id="header-wrapper">
+			<div id="header">
+				<div id="top-bar">
+					<div id="logo">
+						<img src="images/logo.png">
+					</div>
+					<div id="menu">
+						<ul>
+							<li><a href="index.html">About</a></li>
+							<li><a href="work.html">Work</a></li>
+							<li><a href="contact.html">Contact</a></li>
+						</ul>
+					</div>
+				</div>
+				<h1>
+					Hello! I'm Brian. I combine <strong>beautiful</strong> code and <strong>stunning</strong> design to create <strong>amazing</strong> things.
+				</h1>
+			</div>
+		</div>
+		<div class="wrapper" id="about-wrapper">
+			<div id="about">
+				<img src="images/brian.png">
+				<p>I'm a software developer and graphic designer in Bloomington, Indiana passionate about clean code, beautiful interfaces and using technology to help change the world.</p>
+			</div>
+		</div>
+		<div class="wrapper quote-wrapper">
+			<div class="quote">
+				<p>I <strong>challenge</strong> what's possible.</p>
+			</div>
+		</div>
+		<div class="wrapper detail-wrapper">
+			<div class="detail detail-left">
+				<div class="detail-text">
+					<h2>Mobile App Development</h2>
+					<p>From  development to design, I create beautiful native experiences for mobile devices that users will absolutely love. Focusing on clean and simple interfaces not only will users find the app easy to use, but also enjoyable.</p>
+					<a href="work.html" class="white-button">See my Work</a>
+				</div>
+				<div class="detail-image">
+					<img src="images/iphone.png">
+				</div>
+			</div>
+		</div>
+		<div class="wrapper quote-wrapper">
+			<div class="quote">
+				<p>I create <strong>magic</strong> with code.</p>
+			</div>
+		</div>
+		<div class="wrapper detail-wrapper">
+			<div class="detail detail-left">
+				<div class="detail-text">
+					<h2>Web Development and Design</h2>
+					<p>I create websites and webapps from design to launch, making sure that every step is perfect. Not only will you fall in love with your website, but your users will to.</p>
+					<a href="work.html" class="white-button">See my Work</a>
+				</div>
+				<div class="detail-image">
+					<img src="images/mac.png">
+				</div>
+			</div>
+		</div>
+		<div class="wrapper quote-wrapper">
+			<div class="quote">
+				<p>I move technology <strong>forward</strong>.</p>
+			</div>
+		</div>
+		<div class="wrapper" id="footer-wrapper">
+			<div id="footer">
+				<div id="contact-form">
+					<h3>Let's <strong>create</strong> together.</h3>
+					<div id="footer-form">
+						<p class="error-message">Oops! It looks like you missed filling out a couple fields. Fix the errors and try again.</p>
+						<input type="text" id="input-name" placeholder="Your name">
+						<input type="text" id="input-email" placeholder="Your email">
+						<textarea id="input-message" placeholder="Say hi!"></textarea>
+						<button type="submit"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Send</button>
+					</div>
+				</div>
+				<div id="connect-section">
+					<h3>Let's stay <strong>connected</strong>.</h3>
+					<p>Feel free to reach out through email at <a href="mailto:bdjett@me.com">bdjett@me.com</a> or call or text (317) 370-2829.</p>
+					<a href="http://twitter.com/briandjett" target="_blank" class="social-icon" id="social-twitter"><i class="fa fa-twitter fa-lg"></i></a>
+					<a href="http://facebook.com/brianjett" target="_blank" class="social-icon" id="social-facebook"><i class="fa fa-facebook fa-lg"></i></a>
+					<a href="http://linkedin.com/in/bdjett" target="_blank" class="social-icon" id="social-linkedin"><i class="fa fa-linkedin fa-lg"></i></a>
+					<a href="http://github.com/bdjett" target="_blank" class="social-icon" id="social-github"><i class="fa fa-github fa-lg"></i></a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,12 @@
+.quote {
+	@include outer-container;
+	padding: 50px;
+	font-weight: 300;
+	font-size: 1.5em;
+	text-align: center;
+	line-height: 1.6em;
+	@include media($tablet) {
+		font-size: 1em;
+		padding: 25px;
+	}
+}

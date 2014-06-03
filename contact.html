@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Logical Pixels - Development and Design</title>
+		<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/main.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<script>
+			$(function() {
+				$('#contact-info').children('a').hover(function() {
+					$(this).animate({backgroundColor: '#146cba'}, 'slow');
+				}, function() {
+					$(this).animate({backgroundColor: '#252525'}, 'slow');
+				});
+				$('button').hover(function() {
+					$(this).animate({backgroundColor: '#479be6'}, 'fast');
+				}, function() {
+					$(this).animate({backgroundColor: '#146cba'}, 'fast');
+				});
+				$('#form').children('button').click(function() {
+					$(this).html("<i class='fa fa-spinner fa-spin'></i>&nbsp;&nbsp;Sending...");
+					$(this).attr("disabled", "disabled");
+					// Get user input field values
+					var user_name = $('#contact-name').val();
+					var user_email = $('#contact-email').val();
+					var user_phone = $('#contact-phone').val();
+					var user_reason = $('#contact-reason').val();
+					var user_message = $('#contact-message').val();
+
+					// Validation
+					var proceed = true;
+					if (user_name == "") {
+						$('#contact-name').addClass('error');
+						proceed = false;
+					}
+					if (user_email == "") {
+						$('#contact-email').addClass('error');
+						proceed = false;
+					}
+					if (user_message == "") {
+						$('#contact-message').addClass('error');
+						proceed = false;
+					}
+
+					if (proceed) {
+						// everything validated
+						post_data = {'name':user_name, 'email':user_email, 'phone':user_phone, 'reason':user_reason, 'message':user_message};
+
+						$.post('contact_me.php', post_data, function(response) {
+							if (response.type == 'error') {
+								// error submitting
+								$('#form').children('.error-message').text(response.text).fadeIn();
+								$('#form').children('button').html("<i class='fa fa-envelope'></i>&nbsp;&nbsp;Send");
+								$('#form').children('button').removeAttr("disabled");
+							} else {
+								// submit success
+								output = '<p class="success-message">'+response.text+'</p>';
+								$("#form").hide().html(output).slideDown();
+							}
+						}, 'json');
+					} else {
+						// error
+						$('#form').children('.error-message').fadeIn();
+						$('#form').children('button').html("<i class='fa fa-envelope'></i>&nbsp;&nbsp;Send");
+						$('#form').children('button').removeAttr("disabled");
+					}
+				});
+				$('#footer-form').children('button').click(function() {
+					$(this).html("<i class='fa fa-spinner fa-spin'></i>&nbsp;&nbsp;Sending...");
+					$(this).width('auto');
+					$(this).attr("disabled", "disabled");
+					// Get user input field values
+					var user_name = $('#input-name').val();
+					var user_email = $('#input-email').val();
+					var user_message = $('#input-message').val();
+
+					console.log(user_name);
+					console.log(user_email);
+					console.log(user_message);
+
+					// Validation
+					var proceed = true;
+					if (user_name == "") {
+						$('#input-name').addClass('error');
+						proceed = false;
+					}
+					if (user_email == "") {
+						$('#input-email').addClass('error');
+						proceed = false;
+					}
+					if (user_message == "") {
+						$('#input-message').addClass('error');
+						proceed = false;
+					}
+					console.log(proceed);
+
+					if (proceed) {
+						// everything validated
+						console.log("Validated");
+						post_data = {'name':user_name, 'email':user_email, 'message':user_message};
+
+						$.post('contact_me.php', post_data, function(response) {
+							if (response.type == 'error') {
+								$('#footer-form').children('.error-message').text(response.text).fadeIn();
+								$('#footer-form').children('button').html("<i class='fa fa-envelope'></i>&nbsp;&nbsp;Send");
+								$('#footer-form').children('button').width('auto');
+								$('#footer-form').children('button').removeAttr("disabled");
+							} else {
+								output = '<p class="success-message">'+response.text+'</p>';
+								$("#footer-form").hide().html(output).slideDown();
+							}
+						}, 'json');
+					} else {
+						// error
+						$('#footer-form').children('.error-message').fadeIn();
+						$(this).html("<i class='fa fa-envelope'></i>&nbsp;&nbsp;Send");
+						$(this).width('auto');
+						$(this).removeAttr("disabled");
+					}
+				});
+			});
+		</script>
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-39545544-2', 'logicalpixels.com');
+			ga('send', 'pageview');
+		</script>
+	</head>
+	<body>
+		<div class="wrapper" id="header-wrapper">
+			<div id="header">
+				<div id="top-bar">
+					<div id="logo">
+						<img src="images/logo.png">
+					</div>
+					<div id="menu">
+						<ul>
+							<li><a href="index.html">About</a></li>
+							<li><a href="work.html">Work</a></li>
+							<li><a href="contact.html">Contact</a></li>
+						</ul>
+					</div>
+				</div>
+				<h1>
+					If you <strong>love</strong> my work and are looking to hire me for design or development, get in touch.
+				</h1>
+			</div>
+		</div>
+		<div class="wrapper" id="contact-wrapper">
+			<div id="contact">
+				<div id="form">
+					<p>Like what you see? Just want to chat? Want to hire me? Either way, we should definitely talk.</p>
+					<p class="error-message">Oops! It looks like you missed filling out a couple fields. Fix the errors and try again.</p>
+					<input type="text" id="contact-name" name="name" placeholder="Your name">
+					<input type="text" id="contact-email" name="email" placeholder="Your email">
+					<input type="text" id="contact-phone" name="phone" placeholder="Your phone">
+					<input type="text" id="contact-reason" name="reason" placeholder="Reason for contact">
+					<textarea id="contact-message" name="message" placeholder="What's up?"></textarea>
+					<button type="submit"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Send</button>
+				</div>
+				<div id="contact-info">
+					<a href="resume.pdf">Download Resume</a>
+				</div>
+			</div>
+		</div>
+		<div class="wrapper" id="footer-wrapper">
+			<div id="footer">
+				<div id="contact-form">
+					<h3>Let's <strong>create</strong> together.</h3>
+					<div id="footer-form">
+						<p class="error-message">Oops! It looks like you missed filling out a couple fields. Fix the errors and try again.</p>
+						<input type="text" id="input-name" placeholder="Your name">
+						<input type="text" id="input-email" placeholder="Your email">
+						<textarea id="input-message" placeholder="Say hi!"></textarea>
+						<button type="submit"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Send</button>
+					</div>
+				</div>
+				<div id="connect-section">
+					<h3>Let's stay <strong>connected</strong>.</h3>
+					<p>Feel free to reach out through email at <a href="mailto:bdjett@me.com">bdjett@me.com</a> or call or text (317) 370-2829.</p>
+					<a href="http://twitter.com/briandjett" target="_blank" class="social-icon" id="social-twitter"><i class="fa fa-twitter fa-lg"></i></a>
+					<a href="http://facebook.com/brianjett" target="_blank" class="social-icon" id="social-facebook"><i class="fa fa-facebook fa-lg"></i></a>
+					<a href="http://linkedin.com/in/bdjett" target="_blank" class="social-icon" id="social-linkedin"><i class="fa fa-linkedin fa-lg"></i></a>
+					<a href="http://github.com/bdjett" target="_blank" class="social-icon" id="social-github"><i class="fa fa-github fa-lg"></i></a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
